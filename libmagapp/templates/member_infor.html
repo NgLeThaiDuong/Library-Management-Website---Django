@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helios Library</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        .nav-item:hover,
+        .nav-item-active:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        {% load static %}
+        <img src="{% static 'bookshelf.jpg' %}" alt="banner" style="width:100vw">
+    </div>
+    <div class="row sticky-top">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <span class="navbar-brand" href="#">HeliosLibrary</span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="">Home</span></a>
+                        </li>
+                        <li class="nav-item-active">
+                            <a class="nav-link" href="/libmagapp/add_book" target="_blank" rel="noopener noreferrer">Add Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_lending" target="_blank" rel="noopener noreferrer">Lend
+                                Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_member" target="_blank" rel="noopener noreferrer">Create
+                                Member</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_request" target="_blank" rel="noopener noreferrer">Request
+                                Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_card" target="_blank" rel="noopener noreferrer">Add Libray
+                                Card</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_librarian" target="_blank" rel="noopener noreferrer">Create
+                                Libarian</a>
+                        </li>
+
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/accounts/password_change/" style="font: bold; color: whitesmoke; ">Thay đổi mật khẩu</a>
+
+                    </li>
+                </ul>
+            </nav>
+
+   
+    <div class="row" id="profile" style="margin-top: 50px;">   
+        <div class="col-lg-4" id="member_avatar" style="overflow: hidden;">
+            <img src="{{member.avatar.url}}" alt="avatar image" style="display: block; margin:auto">
+            <!-- <a href="#" style="text-decoration: none; display: block; margin: auto;">Add a picture</a> -->
+        </div>
+        <div class="col-lg-8" id="personal_infor" >
+            <div class='row'>
+                <div class="col-sm-12" style="padding: 0; margin: 10px;">
+                    <h1>{{ member.name }}</h1>
+                    <p><a href="#">Edit name</a></p>    
+                </div>
+            </div>
+            <div class='row'>
+                <div class="col-sm-6" style="padding: 0; margin-left:10px">
+                    <h3 style="font-family: 'Times New Roman', Times, serif;">{{ member.email }}</h3>
+                    <p><a href="#">Edit email</a></p>
+                    <h3 style="font-family: 'Times New Roman', Times, serif;">{{ member.tel_number }}</h3>
+                    <p><a href="#">Edit telephone number</a></p>
+                    <h3 style="font-family: 'Times New Roman', Times, serif;">{{ member.date_of_birth }}</h3>
+                    <p><a href="#">Edit date of date_of_birth</a></p>
+                    <h3 style="font-family: 'Times New Roman', Times, serif;">{{ member.register_date }}</h3>
+                    {% if request.user.is_staff %}
+                    <li><a href="/delete_member/{{member.id}}">Xóa người dùng</a></li>
+                    {% endif %}
+                    <!-- <h3 style="font-family: 'Times New Roman', Times, serif;">Đã mượn <strong>{{ num_loaned_times }}</strong> quyển sách</h3>
+                    <h3 style="font-family: 'Times New Roman', Times, serif;">Đang mượn <strong>{{ num_not_return }}</strong> quyển sách</h3> -->
+                </div>
+            </div>   
+        </div>
+        
+    </div>   
+    <div class ='row' style="background-color: floralwhite; margin-top: 50px; padding: 0;">
+        <div class="col-12" style="padding: 0;">
+            <div class="row" style="padding: 0;">
+                <h1 style="display:block; margin:20px auto 20px; font-family: Georgia, 'Times New Roman', Times, serif; clear: both;">Sách đang mượn</h1>
+            </div><div clas='row' style=" margin: 20px auto;width: 70vw; padding: 0;font-weight: bold;">
+                {% if not_return_books %}    
+                <div class="col-4" style="float:left">Tên sách</div>
+                <div class="col-2" style="float:left">Mã sách</div>
+                <div class="col-3" style="float:left">Ngày mượn</div>
+                <div class="col-3" style="float:left">Ngày hết hạn</div>
+                {%endif%}
+            </div>
+
+            {% for book, date in not_return_books.items %}
+            <div clas='row' style="display: block; margin: auto; padding: 0; width: 70vw;">
+                <div class="col-4" style="float: left;">{{ book.title }}</div>
+                <div class="col-2" style="float: left;">{{book.subject|stringformat:"03d"}}.{{ book.id|stringformat:"06d" }}</div>
+                <div class="col-3" style="float: left;">{{ date.creation_date}}</div>
+                <div class="col-3" style="float: left;"> {{date.due_date}}</div>
+                <hr style="clear: both; display: block;">                
+            </div>
+            {% empty %}
+            <div clas='row' style="display: block; margin: 20px auto 10px; padding: 0; width: 70vw; text-align: center;">
+                <h3>Danh sách mượn rỗng</h3><hr>
+            </div>    
+            {% endfor %}
+        </div>     
+    </div>
+    
+    <div class ='row' style="background-color: blanchedalmond;margin:auto; padding: 0;">
+        <div class="col-12" style="padding: 0;">
+            <div class="row" style="padding: 0;">
+                <h1 style="display:block; margin:20px auto; font-family: Georgia, 'Times New Roman', Times, serif; clear: both;">Sách đã trả</h1>
+            </div><div clas='row' style=" margin: 20px auto;width: 70vw; padding: 0;font-weight: bold;">
+                <div class="col-4" style="float:left">Tên sách</div>
+                <div class="col-2" style="float:left">Mã sách</div>
+                <div class="col-3" style="float:left">Ngày mượn</div>
+                <div class="col-3" style="float:left">Ngày trả</div>
+            </div>
+            {% for book, date in returned_books.items %}
+            <div clas='row' style="display: block; margin: auto; padding: 0; width: 70vw;">
+                <div class="col-4" style="float: left;">{{ book.title }}</div>
+                <div class="col-2" style="float: left;">{{book.subject|stringformat:"03d"}}.{{ book.id|stringformat:"06d" }}</div>
+                <div class="col-3" style="float: left;">{{ date.creation_date}}</div>
+                <div class="col-3" style="float: left;"> {{date.return_date}}</div>
+                <hr style="clear: both; display: block;">
+                
+            </div>
+            {% endfor %}
+        </div>     
+    </div>    
+   
+
+    <div class="footer" style="text-align: center; margin-top: 50px; clear: both; height: 50px;">
+        <hr>
+        <p>By using this site, you agree to the Terms of Use and Privacy Policy</p>
+        <p>Contact - tel: 0373.xxx.xxx - fax: 0373.xxx.xxx - email: support@helioslibary.com</p>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helios Library</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        .nav-item:hover,
+        .nav-item-active:hover {
+            background-color: #ddd;
+        }
+
+    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'form.css' %}">
+    
+    
+        
+</head>
+
+<body>
+    <div class="header">
+        {% load static %}
+        <img src="{% static 'bookshelf.jpg' %}" alt="banner" style="width:100vw">
+    </div>
+    <div class="row sticky-top" style="margin-bottom: 20px;">
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <span class="navbar-brand" href="#">HeliosLibrary</span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/libmagapp/home">Home</span></a>
+                        </li>
+                        {% if user.is_staff %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/libmagapp/member">Member</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="lending">Lending</span></a>
+                        </li>
+                        <li class="nav-item-active">
+                            <a class="nav-link" href="/libmagapp/add_book"   rel="noopener noreferrer">Add Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_lending"   rel="noopener noreferrer">Lend
+                                Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_member"   rel="noopener noreferrer">Create
+                                Member</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_card"   rel="noopener noreferrer">Add Libray
+                                Card</a>
+                            </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_request"   rel="noopener noreferrer">Request
+                                Book</a>
+                        </li>
+                        {%endif%}
+                        {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libmagapp/add_librarian"   rel="noopener noreferrer">Create
+                                Libarian</a>
+                        </li>
+                        {%endif%}
+                 
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">User: {{ user.get_username }}</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                        {% endif %} 
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="section">
+        
+        {% block bodysection %}
+            
+        {% endblock bodysection %}
+            
+    </div>
+
+    <div class="footer" style="text-align: center; margin-top: 50px; clear: both; height: 50px;">
+        <hr>
+        <p>By using this site, you agree to the Terms of Use and Privacy Policy</p>
+        <p>Contact - tel: 0373.xxx.xxx - fax: 0373.xxx.xxx - email: support@helioslibary.com</p>
+    </div>
+
+</body>
+
+</html>
