@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block bodysection %}
+
+{% load static %}
+<div style="text-align: center; margin-top: 20px;">
+    <h1>DANH SÁCH MƯỢN</h1>
+</div>
+    <div class="row sticky-top"  style="width:100vw; margin: auto; margin-top: 20px; padding-top: 10px;"></div>
+        <div class="alert alert-info" role="alert"> 
+            <div class="row" style="font-weight: bold;">   
+                <div class="col">Ngày mượn</div>
+                <div class="col">Đến hạn</div>
+                <div class="col">Ngày trả</div>
+                <div class="col">Mã sách</div>
+                <div class="col-2">Tên sách</div>
+                <div class="col">Mã người mượn</div>
+                <div class="col-2">Tên người mượn</div>
+                <div class="col">Số điện thoại</div>
+                <div class="col-2">Email</div>
+            </div>
+        </div>
+    </div>
+        
+{% for lending_list, member, book in lending_list %}
+<div class="alert alert-success" role="alert"> 
+    <div class="row">   
+        <div class="col">{{ lending_list.creation_date}}</div>
+        <div class="col">{{ lending_list.due_date }}</div>
+        <div class="col">{{ lending_list.return_date }}</div>
+        <div class="col">{{ book.id|stringformat:"06d" }}</div>
+        <div class="col-2">{{ book.title }}</div>
+        <div class="col">{{ member.id|stringformat:"06d" }}</div>
+        <div class="col-2">{{ member.name }}</div>
+        <div class="col">{{ member.tel_number }}</div>
+        <div class="col-2">{{ member.email }}</div>
+    </div>
+</div>  
+{% endfor %}
+{% if request.user.is_staff %}
+<div>
+    <a href="/libmagapp/add_lending" style="display: block; width: 50px;  margin: auto">
+        <img src='{% static "add.png" %}' style="width: 50px;"">
+    </a>    
+</div>
+{%endif%}
+{% endblock bodysection %}

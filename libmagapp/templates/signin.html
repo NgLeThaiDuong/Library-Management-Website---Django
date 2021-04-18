@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'form.css' %}"> -->
+</head>
+<body>
+<section>
+    <header>
+        <h3>Login</h3>
+    </header>
+    <form action="/libmagapp/signin/" method ="POST">
+    {% csrf_token %}
+        Email<input type="text" name="username">
+        Password <input type="password" name="password">
+        <input type="submit" value="Login">
+        <input type="reset" value="Reset">
+    </form>
+</section>
+
+</body>
+</html>
